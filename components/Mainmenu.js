@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import styled from "styled-components";
-import { Login } from '../components/Login';
-import { Register } from '../components/Register';
+import { Login } from './Login';
+import { Register } from './Register';
 import cookieCutter from 'cookie-cutter';
 import axios from "axios";
 // var a=function(){

@@ -1,16 +1,8 @@
-import Newproducts from './Newproducts';
-import OnsaleProducts from './OnsaleProducts';
-import BackgroundStory from './BackgroundStory';
-import Frame from './Frame';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import Navbarmenu from './Navbarmenu/index';
-import OnsSale_off from './OnSale_off';
-import Registions from './Registions/index';
-import Statictical from './Statictical';
+import Newproducts from '../components/Newproducts';
+import OnsaleProducts from '../components/OnsaleProducts';
+import BackgroundStory from '../components/BackgroundStory';
+import Frame from '../components/Frame';
 import cookies from 'next-cookies'
-import UserPage from './UserPage';
 export default function LandingPage ({data}){
   {console.log(data[2])}
   return(
