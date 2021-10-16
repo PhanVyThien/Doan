@@ -128,7 +128,7 @@
 .BGS {
     height: 760px;
     padding-top: 60px;
-    width: 1365px;
+    width: 100%;
     background-color: #d8eef0;
     background-repeat: no-repeat;
     background-size: cover;
@@ -200,7 +200,7 @@
 
 .rightbackgroundcontent {
     height: 100%;
-    width: 55%;
+    width: 100%;
     text-align: center;
 }
 
@@ -286,7 +286,7 @@
 
 .producsdisplay {
     height: 400px;
-    width: 1365px;
+    width: 100%;
     margin-top: 30px;
     background-color: transparent;
     white-space: nowrap;
@@ -320,6 +320,9 @@
 .centert {
     width: 100%;
     height: 60px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
     margin-top: 40px;
 }
 
@@ -330,8 +333,8 @@
 
 .tabmenu {
     display: flex;
+    text-align: center;
     height: 100%;
-    margin-left: 14%;
 }
 
 .tabmenu li {
@@ -343,6 +346,8 @@
 .buttontrasperant {
     background-color: transparent;
     border: 0px;
+    color: #000;
+    text-decoration: none;
     border-bottom: 3px solid grey;
     width: 300px;
     height: 100%;
@@ -354,6 +359,8 @@
 .buttonskyblue {
     background-color: skyblue;
     border: 0px;
+    text-decoration: none;
+    color: #000;
     border-bottom: 3px solid grey;
     width: 300px;
     height: 100%;
@@ -416,7 +423,8 @@
     display: block;
     height: 60px;
     width: 100%;
-    font-size: 1.3rem;
+    padding: 10px;
+    font-size: 1rem;
     color: black;
 }
 
@@ -445,13 +453,11 @@
     margin-left: 2.5%;
     margin-top: 20px;
     text-align: right;
-    padding: 10px;
 }
 
 .cartbar button {
-    height: 100%;
-    width: 15%;
-    border-radius: 10px;
+    border-radius: 5px;
+    padding: 0.80em;
     background-color: rgb(161, 204, 161);
     border: 0px;
 }

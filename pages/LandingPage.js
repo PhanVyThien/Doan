@@ -3,13 +3,22 @@ import OnsaleProducts from '../components/OnsaleProducts';
 import BackgroundStory from '../components/BackgroundStory';
 import Frame from '../components/Frame';
 import cookies from 'next-cookies'
+import styled from 'styled-components';
+
+const Body=styled.div`
+    width: 90%;
+    margin-left: 5%;
+`;
 export default function LandingPage ({data}){
   {console.log(data[2])}
   return(
       <Frame data={(data[2])}>
         <BackgroundStory/>
-        <Newproducts data={data[0]}/>
-        <OnsaleProducts data={data[1]}/>
+        <Body>
+          
+          <Newproducts data={data[0]}/>
+          <OnsaleProducts data={data[1]}/>
+        </Body>
       </Frame>
 )
 }

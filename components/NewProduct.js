@@ -17,7 +17,7 @@ function thefuckingunmutilanable(name){
     var i=0;
     var j=0;
     for(;name.length>i;i++){
-        if(i-j<20){
+        if(i-j<17){
             continue;
         }
         if(name[i]!=' '){
@@ -40,6 +40,10 @@ function thefuckingunmutilanable(name){
     );
 }
 function mainn(data){
+    
+}
+
+export default function Newproduct ({data}) {
     return <div className={styles.producsdisplay}>
                 <ul>{data.map((item)=>(
                     <li>
@@ -49,7 +53,7 @@ function mainn(data){
                             <h4>
                                 ${item.Price}
                             </h4>
-                            <div className={styles.cartbar}><button></button></div>
+                            <div className={styles.cartbar}><button>Mua</button></div>
                         </a>
                     </li>
                   ))}
@@ -63,13 +67,4 @@ function mainn(data){
                     </li>
                 </ul>
             </div>
-}
-
-export default function Newproduct ({data}) {
-    console.log(data);
-    return(
-        <div>
-            <main>{mainn(data)}</main>
-        </div>
-    )
 };

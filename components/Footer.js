@@ -47,7 +47,7 @@ const Medias= styled.div`
     background-color:transperant;
     margin-top: 15px;
 `;
-const Head=styled.header`
+const Head=styled.div`
     font-size:35px;
     height:40%;
 `;

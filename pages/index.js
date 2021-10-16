@@ -1,13 +1,4 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import LandingPage from './LandingPage';
-import Navbarmenu from './Navbarmenu/index';
-import OnsSale_off from './OnSale_off';
-import Registions from './Registions/index';
-import Statictical from './Statictical';
-import cookies from 'next-cookies'
-import UserPage from './UserPage';
+
 
 export default function Home({data}) {
   return (

@@ -29,64 +29,59 @@ import React, { useEffect, useState } from "react";
 //         return null;
 //     }
 // }
-function thefuckingunmutilanable(name){
-    var re=[];
-    var i=0;
-    var j=0;
-    for(;name.length>i;i++){
-        if(i-j<17){
-            continue;
-        }
-        if(name[i]!=' '){
-            i++;
-            continue;
-        }
-        if(name.length<=i) break;
-        re.push(name.substring(j,i));
-        j=i;
-    }
-    re.push(name.substring(j,i));
-    if(re.length>2){
-        re[1]+='...';
-    }
-    return (
-        <div>{([re[0],re[1]]).map((item)=>(
-            <h5>{item}</h5>
-        ))}
-        </div>
-    );
-}
-function mainn({data}){
-    return <div className={styles.producsdisplay}>
-                <ul>{data.map((item)=>(
-                    <li>
-                        <a className={styles.product}>
-                            <img className={styles.pro} src={"http://localhost:5035/upload/images/"+item.Image}/>
-                            <a className={styles.produtName}>{thefuckingunmutilanable(item.Name)}</a>
-                            <h4 >
-                                ${item.Price}
-                            </h4>
-                            <div className={styles.cartbar}><button></button></div>
-                        </a>
-                    </li>
-                  ))}
-                    <li>
-                        <a className={styles.more}>
-                            <img className={styles.pro} src="imgs/moreproducts.jpg"/>
-                            <button className={styles.morebutton}>
-                                Xem thêm
-                            </button>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-}
 
 export default function OnsaleProduct({data}){
+    function thefuckingunmutilanable(name){
+        var re=[];
+        var i=0;
+        var j=0;
+        for(;name.length>i;i++){
+            if(i-j<17){
+                continue;
+            }
+            if(name[i]!=' '){
+                i++;
+                continue;
+            }
+            if(name.length<=i) break;
+            re.push(name.substring(j,i));
+            j=i;
+        }
+        re.push(name.substring(j,i));
+        if(re.length>2){
+            re[1]+='...';
+        }
+        return (
+            <div>{([re[0],re[1]]).map((item)=>(
+                <h5>{item}</h5>
+            ))}
+            </div>
+        );
+    }
     return(
-        <div>
-            <main>{mainn({data})}</main>
-        </div>
+        <div className={styles.producsdisplay}>
+        <ul>{data.map((item)=>(
+            <li>
+                <a className={styles.product}>
+                    <img className={styles.pro} src={"http://localhost:5035/upload/images/"+item.Image}/>
+                    <a className={styles.produtName}>{thefuckingunmutilanable(item.Name)}</a>
+                    <h4 >
+                        ${item.Price}
+                    </h4>
+                    <div className={styles.cartbar}><button>Mua</button></div>
+                </a>
+            </li>
+          ))}
+            <li>
+                <a className={styles.more}>
+                    <img className={styles.pro} src="imgs/moreproducts.jpg"/>
+                    <button className={styles.morebutton}>
+                        Xem thêm
+                    </button>
+                </a>
+            </li>
+        </ul>
+    </div>
     )
 }
 

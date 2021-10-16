@@ -76,11 +76,6 @@ export default function Table({data}) {
                     </Rows>
                 </Contaner>
             </Block>
-            <Block>
-                <Contaner>
-
-                </Contaner>
-            </Block>
         </>
     );
 }
