@@ -200,16 +200,27 @@ const Search=styled.div`
 //       }); 
 //     return re;
 //   };
-function ACC(Acc,ShowLogin,setShowLogin,ShowRegister,setShowRegister,Logout){
-    if(Acc==null){
-        return <><Menubutton onClick={()=>setShowLogin(true)}>Đăng nhập</Menubutton><Menubutton onClick={()=>setShowRegister(true)}>Đăng ký</Menubutton></>;
+
+export default function Mainmenu({Acc,isManage}){
+    function ACC(Acc,ShowLogin,setShowLogin,ShowRegister,setShowRegister,Logout,isManager){
+        if(Acc==null){
+            return <><Menubutton onClick={()=>setShowLogin(true)}>Đăng nhập</Menubutton><Menubutton onClick={()=>setShowRegister(true)}>Đăng ký</Menubutton></>;
+        }
+        if(isManager){
+            setManager(<Menubutton href="/Admin">Quản lý</Menubutton>);
+        }
+        return <><Menubutton onClick={()=>Logout()}>Đăng xuất</Menubutton><Menubutton href="/UserPage">{Acc}</Menubutton></>;
     }
-    return <><Menubutton onClick={()=>Logout()}>Đăng xuất</Menubutton><Menubutton href="/UserPage">{Acc}</Menubutton></>;
-}
-function setup(Acc) {
     const [ShowLogin,setShowLogin]=useState(false);
     const [ShowRegister,setShowRegister]=useState(false);
     const [Loginstate,setLoginstate]=useState(ACC(Acc,ShowLogin,setShowLogin,ShowRegister,setShowRegister,Logout));
+    const [Manager,setManager]=useState(checkMana());
+    function checkMana(){
+        if(isManage){
+            return(<Menubutton href="/Admin">Quản lý</Menubutton>);
+        }
+        return '';
+    }
     function Logout() {
         cookieCutter.set('Acc', '');
         Acc=null;
@@ -293,7 +304,7 @@ function setup(Acc) {
                                 <Searchbutton src='imgs/search.png' className='Searchbutton'/>
                             </Search>
                             {Loginstate}
-                            <Menubutton>Quản lý</Menubutton>
+                            {Manager}
                             <Menubutton>Giỏ hàng</Menubutton>
                         </Right>
                     </Rightside>
@@ -301,8 +312,4 @@ function setup(Acc) {
             </Tabemenu>
         </Navbarmenu>
     );
-}
-const Mainmenu = ({Acc}) =>(
-    <>{setup(Acc)}</>
-)
-export default Mainmenu
+};

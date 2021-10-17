@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Frame from "./Frame";
+import Frame from "../components/Frame";
 import axios from "axios";
 import React, { useState } from 'react';
 import cookies from 'next-cookies'
@@ -216,20 +216,42 @@ export default function UserPage({data}){
     const ShowMode=(title)=>{
         return <h5>{title}</h5>;
     }
-    
+    function UpdateCloud(dataa){
+        console.log(dataa);
+        axios
+            .post(
+            "http://localhost:5035/users/"+dataa._id,
+            dataa,
+            {
+                headers: { "Content-Type": "application/json" },
+            }
+            )
+            .then(function (response) {
+            console.log(response);
+            cookieCutter.set('Acc', response.data.user._id);
+            setLoginstate[0](setLoginstate[7](response.data.user.name,setLoginstate[2],setLoginstate[3],setLoginstate[4],setLoginstate[5],setLoginstate[6]));
+            hide();
+            })
+            .catch(function (error) {
+            console.log('aa');
+            console.log(error);
+            setvalidatemessage("Email đã được sử dụng");
+            });
+    }
     const Update=(up)=>{
         if(up.name=="name"){
             data[0].name=Dv1;
             setD1([ShowMode(data[0].name)]);
-            //update funtion;
+           // UpdateCloud(data[0]);
         }else if(up.name=="email"){
             data[0].email=Dv2;
             setD2([ShowMode('G-mail: '+data[0].email)]);
-            //update funtion;
+            console.log(data[0]);
+           // UpdateCloud(data[0]);
         }else{
             data[0].role=Dv3;
             setD3([ShowMode('Vai trò: '+data[0].role)]);
-            //update funtion;
+           // UpdateCloud(data[0]);
         }
     }
     const [btnsave,setbtnsave]=useState(null);
@@ -360,7 +382,11 @@ UserPage.getInitialProps = async (ctx) => {
     var json11 = await res11.json();
     for(var i=0;i<json11.length;i++) {
         for(var j=0;j<(json11[i].Products).length;j++) {
-            const res21 = await fetch("http://localhost:5035/courses/" +(json11[i].Products)[j].courseId);
+            var courseId=(json11[i].Products)[j].courseId;
+            if((json11[i].Products)[j].courseId==undefined){
+                courseId=(json11[i].Products)[j].product.id;
+            }
+            const res21 = await fetch("http://localhost:5035/courses/" +courseId);
             const json21 = await res21.json();
             if(!json21) {
                 (json11[i].Products)[j].courseName="Không tồn tại";
@@ -371,7 +397,7 @@ UserPage.getInitialProps = async (ctx) => {
     }
     const {Acc} =cookies(ctx);
     const res21 = await fetch("http://localhost:5035/users/"+Acc);
-    const json21 = await res21.json();
+    var json21 = await res21.json();
 
     return { data: [json21,json11] };
   };

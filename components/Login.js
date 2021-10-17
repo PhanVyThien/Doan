@@ -53,7 +53,6 @@ const LoginButton=styled.a`
   background-color: skyblue;
   border: 0px;
   text-decoration: none;
-
   transition: all 0.2s ease-in-out;
   &:hover { 
     background-color: #2690d1;
@@ -77,9 +76,11 @@ const Cancel=styled.span`
 `;
 const DIV=styled.div`
   background-color: red;
+  height:auto;
 `;
 const H6=styled.h6`
     color:red;
+    height:50px;
 `;
 export const Login =({show,setShow,setShowRegister,setLoginstate})=>{
   const hide=()=> {
@@ -116,10 +117,16 @@ export const Login =({show,setShow,setShowRegister,setLoginstate})=>{
         }
       )
       .then(function (response) {
-        console.log(response.data.user);
         cookieCutter.set('Acc', response.data.user._id);
-        setLoginstate[0](setLoginstate[7](response.data.user.name,setLoginstate[2],setLoginstate[3],setLoginstate[4],setLoginstate[5],setLoginstate[6]));
+        var k=false;
+        if(response.data.user.role=='Manager'){
+          k=true;
+        }
+        setLoginstate[0](setLoginstate[7](response.data.user.name,setLoginstate[2],setLoginstate[3],setLoginstate[4],setLoginstate[5],setLoginstate[6],k));
         setPassnoity("Đúng rồi");
+        // if(response.data.user.role=='Customer'){
+        //   setManger(true);
+        // }
         hide();
       })
       .catch(function (error) {
@@ -153,8 +160,9 @@ export const Login =({show,setShow,setShowRegister,setLoginstate})=>{
               /></Div>
             
           <Div><Label style={{float: 'left',marginLeft: '50px'}}>quên mật khẩu?</Label><Label style={{float: 'right',marginRight: '54px'}} onClick={()=>Regis()}>Tạo tài khoản</Label></Div>
-          <Div><LoginButton onClick={handleSubmit}>Đăng nhập</LoginButton></Div>
           <H6>{Passnoity}</H6>
+          <Div><LoginButton onClick={handleSubmit}>Đăng nhập</LoginButton></Div>
+          
         </Loginform>
       </Frame>
     ):null}

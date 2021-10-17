@@ -10,12 +10,11 @@ const Body=styled.div`
     margin-left: 5%;
 `;
 export default function LandingPage ({data}){
-  {console.log(data[2])}
+  // {console.log(data[3])}
   return(
-      <Frame data={(data[2])}>
+      <Frame data={(data[2])} isManage={(data[3])}>
         <BackgroundStory/>
         <Body>
-          
           <Newproducts data={data[0]}/>
           <OnsaleProducts data={data[1]}/>
         </Body>
@@ -44,8 +43,13 @@ LandingPage.getInitialProps = async (ctx) => {
   const {Acc} =cookies(ctx);
   const res31 = await fetch("http://localhost:5035/users/"+Acc);
   var json31 = await res31.json();
- 
-  return { data: [[json11,json12,json13],[json21,json22,json23],json31.name] };
+
+  var k=false;
+  if(json31.role=='Manager'){
+    k=true;
+  }
+  
+  return { data: [[json11,json12,json13],[json21,json22,json23],json31.name,k] };
 };
 
 

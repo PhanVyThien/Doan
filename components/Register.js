@@ -151,15 +151,12 @@ export const Register =({show,setShow,setLoginstate})=>{
           cookieCutter.set('Acc', response.data.user._id);
           setLoginstate[0](setLoginstate[7](response.data.user.name,setLoginstate[2],setLoginstate[3],setLoginstate[4],setLoginstate[5],setLoginstate[6]));
           hide();
-          
         })
         .catch(function (error) {
           console.log('aa');
           console.log(error);
-          
           setvalidatemessage("Email đã được sử dụng");
         });
-        Router.push('/LandingPage');
     };
   return <>
     {show ? (
