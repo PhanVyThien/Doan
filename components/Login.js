@@ -150,6 +150,7 @@ export const Login =({show,setShow,setShowRegister,setLoginstate})=>{
               name="email"
               value={email}
               onChange={handleChange()}
+              
               /></Div>
           <Div><TextBox  type="text"
               id="role"

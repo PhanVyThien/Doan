@@ -3,6 +3,9 @@ import Frame from "../components/Frame";
 import axios from "axios";
 import React, { useState } from 'react';
 import cookies from 'next-cookies'
+import { useRef } from 'react';
+import {ChangePassword} from '../components/ChangePassword';
+import {UpdateAddress} from '../components/UpdateAddress';
 import { set } from "js-cookie";
 import Router from 'next/router'
 
@@ -209,49 +212,52 @@ const SaveButton=styled.button`
     border:none;
 `;
 export default function UserPage({data}){
-    var Dv1 = data[0].name;
-    var Dv2 = data[0].email;
-    var Dv3 = data[0].role;
-
-    const ShowMode=(title)=>{
-        return <h5>{title}</h5>;
+    function GetDate(fulltime){
+        const dateTime=new Date(fulltime);
+        
+        return dateTime.toLocaleDateString();
     }
-    function UpdateCloud(dataa){
-        console.log(dataa);
+    // const [Dv1,setDv1] = useState('');
+    // const [Dv2,setDv2] = useState('');
+    // const [Dv3,setDv3] = useState('');
+    const Dv = useRef([]);
+    const ShowMode=(title)=>{
+        return <h6>{title}</h6>;
+    }
+    function UpdateCloud(){
         axios
-            .post(
-            "http://localhost:5035/users/"+dataa._id,
-            dataa,
-            {
-                headers: { "Content-Type": "application/json" },
-            }
+            .put(
+                "http://localhost:5035/users/"+data[0]._id,
+                {name:(Dv.current)[0],email:(Dv.current)[1],address:(Dv.current)[3]},
+                {
+                    headers: { "Content-Type": "application/json" },
+                }
             )
             .then(function (response) {
-            console.log(response);
-            cookieCutter.set('Acc', response.data.user._id);
-            setLoginstate[0](setLoginstate[7](response.data.user.name,setLoginstate[2],setLoginstate[3],setLoginstate[4],setLoginstate[5],setLoginstate[6]));
-            hide();
+                console.log('sussces');
             })
             .catch(function (error) {
-            console.log('aa');
-            console.log(error);
-            setvalidatemessage("Email đã được sử dụng");
+                console.log('error');
+                console.log(error);
             });
     }
     const Update=(up)=>{
         if(up.name=="name"){
-            data[0].name=Dv1;
-            setD1([ShowMode(data[0].name)]);
-           // UpdateCloud(data[0]);
+            data[0].name=(Dv.current)[0];
+            setD1([ShowMode((Dv.current)[0])]);
+            UpdateCloud();
         }else if(up.name=="email"){
-            data[0].email=Dv2;
-            setD2([ShowMode('G-mail: '+data[0].email)]);
-            console.log(data[0]);
-           // UpdateCloud(data[0]);
-        }else{
-            data[0].role=Dv3;
-            setD3([ShowMode('Vai trò: '+data[0].role)]);
-           // UpdateCloud(data[0]);
+            data[0].email=(Dv.current)[1];
+            setD2([ShowMode('G-mail: '+(Dv.current)[1])]);
+            UpdateCloud();
+        }else if(up.name=="address"){
+            data[0].address=(Dv.current)[3];
+            setD4([ShowMode('Địa chỉ: '+(Dv.current)[3])]);
+            UpdateCloud();
+        }else if(up.name=="createDate"){
+            data[0].createDate=(Dv.current)[4];
+            setD5([ShowMode('Ngày tạo: '+(Dv.current)[4])]);
+            UpdateCloud();
         }
     }
     const [btnsave,setbtnsave]=useState(null);
@@ -260,37 +266,59 @@ export default function UserPage({data}){
     const btnEdit=(onclick)=>{
         return <Edit src='imgs/Edit.jpg' onClick={onclick}></Edit>;
     }
-    
+    //show modal
+    const [showChangePass,setshowChangePass]=useState(false);
+    const [showChangeaddress,setshowChangeaddress]=useState(false);
+
     const [D1,setD1]=useState([ShowMode(data[0].name)]);
     const [D2,setD2]=useState([ShowMode('G-mail: '+data[0].email)]);
     const [D3,setD3]=useState([ShowMode('Vai trò: '+data[0].role)]);
+    const [D4,setD4]=useState([ShowMode('Địa chỉ: '+data[0].address)]);
+    const [D5,setD5]=useState([ShowMode('Ngày tạo: '+GetDate(data[0].createDate))]);
+    const [D6,setD6]=useState([ShowMode('Mật khẩu: **********')]);
 
-    const [E1,setE1]=useState(btnEdit(()=>setD1(EditMode(data[0].name,"name",{value: Dv1,name:"name"}))));
-    const [E2,setE2]=useState(btnEdit(()=>setD2(EditMode(data[0].email,"email",{value: Dv2,name:"email"}))));
-    const [E3,setE3]=useState(btnEdit(()=>setD3(EditMode(data[0].role,"role",{value: Dv3,name:"role"}))));
+    const [E1,setE1]=useState(btnEdit(()=>setD1(EditMode(data[0].name,"name",{value: (Dv.current)[0],name:"name"}))));
+    const [E2,setE2]=useState(btnEdit(()=>setD2(EditMode(data[0].email,"email",{value: (Dv.current)[1],name:"email"}))));
+    const [E3,setE3]=useState(btnEdit(()=>setD3(EditMode(data[0].role,"role",{value: (Dv.current)[2],name:"role"}))));
+    const [E4,setE4]=useState(btnEdit(()=>setshowChangeaddress(true)));
+    const [E6,setE6]=useState(btnEdit(()=>setshowChangePass(true)));
+    //const [E5,setE5]=useState(btnEdit(()=>setD5(EditMode(data[0].createDate,"createDate",{value: (Dv.current)[4],name:"createDate"}))));
+
+    function D4Do(vv){
+        setD4(vv);
+    }
 
     const HandleChange=()=>(e)=>{
         if(e.target.name=="name"){
-           Dv1=e.target.value;
-            setD1(EditMode(e.target.value,"name",{value: Dv1,name:"name"}));
+            (Dv.current)[0]=e.target.value;
+            console.log((Dv.current)[0]);
+            setD1(Change(e.target.value,"name",{value: (Dv.current)[0],name:"name"}));
         }else if(e.target.name=="email"){
-            Dv2=e.target.value;
-            setD2(EditMode(e.target.value,"email",{value: Dv2,name:"email"}));
-        }else{
-            Dv3=e.target.value;
-            setD3(EditMode(e.target.value,"role",{value: Dv3,name:"role"}));
-            
+            (Dv.current)[1]=e.target.value;
+            console.log((Dv.current)[1]);
+            setD2(Change(e.target.value,"email",{value: (Dv.current)[2],name:"email"}));
+        }else if(e.target.name=="address"){
+            (Dv.current)[3]=e.target.value;
+            console.log((Dv.current)[3]);
+            setD4(Change(e.target.value,"address",{value: (Dv.current)[3],name:"address"}));
+        }else if(e.target.name=="createDate"){
+            (Dv.current)[4]=e.target.value;
+            console.log((Dv.current)[4]);
+            setD4(Change(e.target.value,"createDate",{value: (Dv.current)[4],name:"createDate"}));
         }
     }
+    const Change=(title,name,up)=>{
+       return [<EditBar value={title} name={name} onChange={HandleChange()}/>,<SaveButton onClick={()=>Update(up)}>Lưu</SaveButton>];
+   }
     const EditMode=(title,name,up)=>{
-         Dv1 = data[0].name;
-         Dv2 = data[0].email;
-         Dv3 = data[0].role;
+        (Dv.current)=([data[0].name,data[0].email,data[0].role,data[0].address,data[0].createDate]);
         return [<EditBar value={title} name={name} onChange={HandleChange()}/>,<SaveButton onClick={()=>Update(up)}>Lưu</SaveButton>];
     }
     
     return (
         <Frame data={data[0].name}>
+            <ChangePassword show={showChangePass} setShow={setshowChangePass} emaill={data[0].email}/>
+            <UpdateAddress show={showChangeaddress} setShow={setshowChangeaddress} idd={data[0]._id} previusAddress={data[0].address} setStatic={D4Do}></UpdateAddress>
             <Background>
                 <Block>
                     <Table>
@@ -312,10 +340,20 @@ export default function UserPage({data}){
                                     </Detail>
                                     <Detail>
                                         {D3[0]}
-                                        {E3}
-                                        {D3[1]}
                                     </Detail>
-                                    
+                                    <Detail>
+                                        {D4[0]}
+                                        {E4}
+                                        {D4[1]}
+                                    </Detail>
+                                    <Detail>
+                                        {D5[0]}
+                                    </Detail>
+                                    <Detail>
+                                        {D6[0]}
+                                        {E6}
+                                        {D6[1]}
+                                    </Detail>
                                 </Blockk>
                                 {btnsave}
                             </td>
@@ -378,7 +416,11 @@ export default function UserPage({data}){
     );
 }
 UserPage.getInitialProps = async (ctx) => {
-    const res11 = await fetch("http://localhost:5035/bills");
+    const {Acc} =cookies(ctx);
+    const res21 = await fetch("http://localhost:5035/users/"+Acc);
+    var json21 = await res21.json();
+
+    const res11 = await fetch("http://localhost:5035/users/"+Acc+"/bills");
     var json11 = await res11.json();
     for(var i=0;i<json11.length;i++) {
         for(var j=0;j<(json11[i].Products).length;j++) {
@@ -395,9 +437,7 @@ UserPage.getInitialProps = async (ctx) => {
             (json11[i].Products)[j].courseName=json21.Name;
         }
     }
-    const {Acc} =cookies(ctx);
-    const res21 = await fetch("http://localhost:5035/users/"+Acc);
-    var json21 = await res21.json();
+    
 
     return { data: [json21,json11] };
   };
