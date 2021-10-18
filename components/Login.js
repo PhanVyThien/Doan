@@ -152,7 +152,7 @@ export const Login =({show,setShow,setShowRegister,setLoginstate})=>{
               onChange={handleChange()}
               
               /></Div>
-          <Div><TextBox  type="text"
+          <Div><TextBox  type="password"
               id="role"
               placeholder="nhập mật khẩu"
               required

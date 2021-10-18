@@ -177,7 +177,7 @@ export const Register =({show,setShow,setLoginstate})=>{
               name="name"
               onChange={handleChange()}
               /></Div>
-          <Div><TextBox  type="text"
+          <Div><TextBox  type="password"
               id="role"
               placeholder="Mật khẩu"
               required
