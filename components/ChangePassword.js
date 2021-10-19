@@ -200,7 +200,7 @@ export const ChangePassword =({show,setShow,emaill})=>{
               onChange={handleChange()}
               /></Div>
           <H6>{validatemessage}</H6>
-          <Div><LoginButton onClick={handleSubmit} >Đăng ký</LoginButton></Div>
+          <Div><LoginButton onClick={handleSubmit} >Xác nhận</LoginButton></Div>
         </Loginform>
       </Frame>
     ):null}

@@ -44,7 +44,8 @@ const Cell=styled.div`
     display: flex;
 `;
 const Rows=styled.div`
-    height:70%;
+    /* height:70%; */
+    height:500px;
     overflow-y: scroll;
     &:-webkit-scrollbar{
         display: none;

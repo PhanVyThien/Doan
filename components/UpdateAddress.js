@@ -191,7 +191,7 @@ export const UpdateAddress =({show,setShow,idd,previusAddress,setStatic})=>{
                     onChange={handleChange()}/>
             </Div>
           <H6>{validatemessage}</H6>
-          <Div><LoginButton onClick={handleSubmit} >Đăng ký</LoginButton></Div>
+          <Div><LoginButton onClick={handleSubmit} >Cập nhật</LoginButton></Div>
         </Loginform>
       </Frame>
     ):null}

@@ -141,7 +141,8 @@ Statictical.getInitialProps = async (ctx) =>{
     const res_All_Courses= await fetch("http://localhost:5035/courses");
     const json_All_Courses=await res_All_Courses.json();
 
-    const res_All_Users= await fetch("http://localhost:5035/users");
+    // const res_All_Users= await fetch("http://localhost:5035/users");
+    const res_All_Users= await fetch("http://localhost:5035/users?page=0&size=100");
     const json_All_Users=await res_All_Users.json();
 
 
